@@ -30,8 +30,8 @@ A semantic word-guessing game powered by OpenAI embeddings. Guess the secret wor
 ### 2. Configure Environment
 
 ```bash
-# The .env file must be placed inside the server/ folder
-cp wordaura/.env.example wordaura/server/.env
+# The .env file lives inside server/
+cp wordaura/server/.env.example wordaura/server/.env
 # Edit wordaura/server/.env and paste your key:
 # OPENAI_API_KEY=sk-...your-key-here...
 ```

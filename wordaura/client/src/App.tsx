@@ -63,6 +63,14 @@ export default function App() {
             >
               🏅
             </button>
+            {game.sessionId && (
+              <button
+                onClick={handlePlayAgain}
+                className="px-3 py-1.5 text-sm bg-yellow-400/10 hover:bg-yellow-400/20 text-yellow-300 rounded-lg border border-yellow-400/20 transition-colors font-medium"
+              >
+                New Game
+              </button>
+            )}
             {!game.sessionId && (
               <button
                 onClick={() => startGame(true)}
@@ -224,10 +232,11 @@ export default function App() {
                   disabled={game.hintsRemaining <= 0 || game.isLoading}
                   className="flex items-center gap-2 px-4 py-2 bg-purple-500/10 hover:bg-purple-500/20 disabled:opacity-40 disabled:cursor-not-allowed text-purple-300 border border-purple-500/20 rounded-xl text-sm font-medium transition-colors"
                 >
-                  💡 Get Hint
-                  <span className="text-xs text-purple-500">
-                    ({game.hintsRemaining}/3 left)
-                  </span>
+                  {game.hintsRemaining <= 0 ? (
+                    <>🚫 No hints remaining</>
+                  ) : (
+                    <>💡 Get Hint <span className="text-xs text-purple-500">({game.hintsRemaining}/3 left)</span></>
+                  )}
                 </button>
                 <button
                   onClick={giveUp}
@@ -237,16 +246,6 @@ export default function App() {
                   Give Up
                 </button>
               </div>
-            )}
-
-            {/* New Game button while playing */}
-            {(game.gaveUp || game.won) ? null : (
-              <button
-                onClick={handlePlayAgain}
-                className="text-xs text-gray-600 hover:text-gray-400 self-center transition-colors"
-              >
-                ↩ Start a new game
-              </button>
             )}
 
             {/* Guess list */}

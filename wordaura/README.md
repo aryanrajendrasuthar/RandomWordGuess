@@ -1,6 +1,6 @@
 # WordAura ✨
 
-A semantic word-guessing game powered by OpenAI embeddings. Guess the secret word using similarity scores as your guide.
+A semantic word-guessing game powered by HuggingFace embeddings (100% free). Guess the secret word using similarity scores as your guide.
 
 ## How to Play
 
@@ -20,20 +20,21 @@ A semantic word-guessing game powered by OpenAI embeddings. Guess the secret wor
 
 ## Setup
 
-### 1. Get an OpenAI API Key
+### 1. Get a Free HuggingFace Token
 
-1. Go to [platform.openai.com](https://platform.openai.com)
-2. Sign in or create an account
-3. Navigate to **API Keys** → **Create new secret key**
-4. Copy the key (starts with `sk-...`)
+1. Go to [huggingface.co](https://huggingface.co) and create a free account
+2. Navigate to **Settings → Access Tokens**
+3. Click **New token** → Role: **Read** → Copy the token (starts with `hf_...`)
+
+No credit card required — the Inference API is free.
 
 ### 2. Configure Environment
 
 ```bash
 # The .env file lives inside server/
 cp wordaura/server/.env.example wordaura/server/.env
-# Edit wordaura/server/.env and paste your key:
-# OPENAI_API_KEY=sk-...your-key-here...
+# Edit wordaura/server/.env and paste your token:
+# HF_TOKEN=hf_...your-token-here...
 ```
 
 ### 3. Install & Run the Server
@@ -79,7 +80,7 @@ wordaura/
 │   ├── src/
 │   │   ├── routes/game.ts        # POST /new /guess /hint /giveup
 │   │   ├── services/
-│   │   │   ├── embeddingService.ts  # OpenAI text-embedding-3-small
+│   │   │   ├── embeddingService.ts  # HuggingFace sentence-transformers embeddings
 │   │   │   └── gameService.ts       # Session management, word list, hints
 │   │   └── index.ts
 │   ├── package.json
@@ -104,7 +105,7 @@ wordaura/
 
 ## Features
 
-- **Semantic scoring** via `text-embedding-3-small` — no hardcoded rules
+- **Semantic scoring** via `sentence-transformers/all-MiniLM-L6-v2` (free) — no hardcoded rules
 - **Hint system** — up to 3 letter-reveal hints per game
 - **Daily Challenge** — same word for everyone each day (deterministic)
 - **Leaderboard** — stored in localStorage, tracks guesses + hints

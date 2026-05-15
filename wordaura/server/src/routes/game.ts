@@ -15,6 +15,9 @@ const guessLimiter = rateLimit({
   max: 60,
   keyGenerator: (req) => req.body?.sessionId || req.ip || 'unknown',
   message: { error: 'Too many guesses. Please wait a moment.' },
+  standardHeaders: true,
+  legacyHeaders: false,
+  validate: false,
 });
 
 router.post('/new', (req: Request, res: Response) => {

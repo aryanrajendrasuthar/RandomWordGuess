@@ -73,12 +73,6 @@ export interface GameSession {
   createdAt: number;
 }
 
-export interface DailyChallenge {
-  word: string;
-  category: Category;
-  date: string;
-}
-
 const sessions = new Map<string, GameSession>();
 
 // Clean up sessions older than 2 hours
@@ -154,8 +148,3 @@ export function useHint(session: GameSession): string {
   return session.revealedLetters.map((l, i) => l ?? '_').join(' ');
 }
 
-export function getDailyChallenge(): DailyChallenge {
-  const today = new Date().toISOString().split('T')[0];
-  const entry = getDailyWord(today);
-  return { word: entry.word, category: entry.category, date: today };
-}

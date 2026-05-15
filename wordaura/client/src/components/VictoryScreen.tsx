@@ -28,13 +28,16 @@ function buildShareText(guessCount: number, guesses: GuessEntry[], isDaily: bool
 
 export default function VictoryScreen({ secretWord, guessCount, hintsUsed, isDaily, guesses, onPlayAgain }: Props) {
   useEffect(() => {
+    let cancelled = false;
     const end = Date.now() + 2500;
     const frame = () => {
+      if (cancelled) return;
       confetti({ particleCount: 3, angle: 60, spread: 55, origin: { x: 0 } });
       confetti({ particleCount: 3, angle: 120, spread: 55, origin: { x: 1 } });
       if (Date.now() < end) requestAnimationFrame(frame);
     };
     frame();
+    return () => { cancelled = true; };
   }, []);
 
   const shareText = buildShareText(guessCount, guesses, isDaily);
